@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion';
 import { useAgentStore } from '../store';
 import type { Agent } from '../types';
-import { Power, Circle } from 'lucide-react';
+import { Power, Circle, Settings } from 'lucide-react';
+import { useState } from 'react';
+import AgentControlPanel from './AgentControlPanel';
 
 interface AgentCardProps {
   agent: Agent;
@@ -9,6 +11,7 @@ interface AgentCardProps {
 
 export default function AgentCard({ agent }: AgentCardProps) {
   const { selectAgent, toggleAgentStatus } = useAgentStore();
+  const [showControlPanel, setShowControlPanel] = useState(false);
 
   const statusColors = {
     idle: 'bg-gray-500',
@@ -105,24 +108,37 @@ export default function AgentCard({ agent }: AgentCardProps) {
           </div>
         </div>
 
-        {/* Toggle Button */}
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            toggleAgentStatus(agent.id);
-          }}
-          className={`
-            w-full py-2 px-4 rounded-lg font-semibold text-sm
-            transition-all flex items-center justify-center gap-2
-            ${agent.isActive 
-              ? 'bg-error/20 text-error hover:bg-error/30' 
-              : 'bg-success/20 text-success hover:bg-success/30'
-            }
-          `}
-        >
-          <Power className="w-4 h-4" />
-          {agent.isActive ? 'Deactivate' : 'Activate'}
-        </button>
+        {/* Action Buttons */}
+        <div className="flex gap-2">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleAgentStatus(agent.id);
+            }}
+            className={`
+              flex-1 py-2 px-4 rounded-lg font-semibold text-sm
+              transition-all flex items-center justify-center gap-2
+              ${agent.isActive 
+                ? 'bg-error/20 text-error hover:bg-error/30' 
+                : 'bg-success/20 text-success hover:bg-success/30'
+              }
+            `}
+          >
+            <Power className="w-4 h-4" />
+            {agent.isActive ? 'Off' : 'On'}
+          </button>
+          
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowControlPanel(true);
+            }}
+            className="px-4 py-2 rounded-lg font-semibold text-sm bg-white/5 hover:bg-white/10 transition-all flex items-center justify-center"
+            style={{ color: agent.color }}
+          >
+            <Settings className="w-4 h-4" />
+          </button>
+        </div>
 
         {/* Active mission indicator */}
         {agent.activeMission && (
@@ -139,6 +155,14 @@ export default function AgentCard({ agent }: AgentCardProps) {
           </div>
         )}
       </div>
+
+      {/* Control Panel Modal */}
+      {showControlPanel && (
+        <AgentControlPanel 
+          agentId={agent.id}
+          onBack={() => setShowControlPanel(false)}
+        />
+      )}
     </motion.div>
   );
 }
