@@ -1,16 +1,25 @@
 import { SplineScene } from "@/components/ui/spline";
+import NeuralBackground from "@/components/ui/flow-field-background";
 
 export default function SplineZoo() {
   return (
-    <div className="w-full h-full relative overflow-hidden bg-bg-primary">
-      {/* Animated gradient background with your color scheme */}
-      <div className="absolute inset-0 bg-gradient-to-br from-bg-primary via-primary/5 to-secondary/5" />
-      
-      {/* Glowing orbs in brand colors */}
+    <div className="w-full h-full relative overflow-hidden">
+      {/* Neural Flow Field Background - Layer 1 */}
+      <div className="absolute inset-0">
+        <NeuralBackground 
+          color="#EC4899" // Pink particles
+          trailOpacity={0.08}
+          particleCount={800}
+          speed={0.6}
+          className="opacity-40"
+        />
+      </div>
+
+      {/* Glowing orbs in brand colors - Layer 2 */}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/20 rounded-full blur-3xl animate-pulse delay-1000" />
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
       
-      {/* Grid overlay */}
+      {/* Grid overlay - Layer 3 */}
       <div 
         className="absolute inset-0 opacity-10" 
         style={{
@@ -22,7 +31,7 @@ export default function SplineZoo() {
         }}
       />
 
-      {/* 3D Spline Scene */}
+      {/* 3D Spline Scene - Layer 4 */}
       <div className="absolute inset-0 z-0">
         <SplineScene 
           scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
@@ -30,14 +39,14 @@ export default function SplineZoo() {
         />
       </div>
 
-      {/* Instruction overlay */}
+      {/* Instruction overlay - Layer 5 */}
       <div className="absolute bottom-8 right-8 z-10 glass rounded-xl p-4 max-w-xs border-2 border-primary/20">
         <div className="flex items-center gap-2 mb-2">
           <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-          <p className="text-xs font-semibold text-primary">3D Zoo Active</p>
+          <p className="text-xs font-semibold text-primary">Neural Network Active</p>
         </div>
         <p className="text-sm text-gray-300">
-          Interactive 3D environment. Create custom animals at{' '}
+          Move your mouse to interact with particles. Create custom animals at{' '}
           <a 
             href="https://app.spline.design" 
             target="_blank" 

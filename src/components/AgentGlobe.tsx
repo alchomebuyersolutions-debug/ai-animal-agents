@@ -1,5 +1,6 @@
 import { Component as Globe } from "@/components/ui/interactive-globe";
 import { useAgentStore } from "@/store";
+import NeuralBackground from "@/components/ui/flow-field-background";
 
 export default function AgentGlobe() {
   const agents = useAgentStore((state) => state.agents);
@@ -21,15 +22,23 @@ export default function AgentGlobe() {
   ];
 
   return (
-    <div className="w-full h-full relative overflow-hidden bg-bg-primary">
-      {/* Gradient background with brand colors */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-bg-primary to-secondary/10" />
+    <div className="w-full h-full relative overflow-hidden">
+      {/* Neural Flow Field Background - Layer 1 */}
+      <div className="absolute inset-0">
+        <NeuralBackground 
+          color="#06B6D4" // Cyan particles
+          trailOpacity={0.1}
+          particleCount={600}
+          speed={0.5}
+          className="opacity-30"
+        />
+      </div>
       
-      {/* Glowing orbs */}
+      {/* Glowing orbs - Layer 2 */}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse" />
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
       
-      {/* Globe */}
+      {/* Globe - Layer 3 */}
       <div className="absolute inset-0 flex items-center justify-center">
         <Globe 
           size={600}
@@ -42,8 +51,8 @@ export default function AgentGlobe() {
         />
       </div>
 
-      {/* Stats overlay */}
-      <div className="absolute top-8 left-8 glass rounded-xl p-4 border-2 border-primary/20">
+      {/* Stats overlay - Layer 4 */}
+      <div className="absolute top-8 left-8 glass rounded-xl p-4 border-2 border-primary/20 z-10">
         <div className="flex items-center gap-2 mb-3">
           <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
           <p className="text-xs font-semibold text-primary">Global Network</p>
@@ -60,8 +69,8 @@ export default function AgentGlobe() {
         </div>
       </div>
 
-      {/* Legend */}
-      <div className="absolute bottom-8 right-8 glass rounded-xl p-4 border-2 border-secondary/20">
+      {/* Legend - Layer 4 */}
+      <div className="absolute bottom-8 right-8 glass rounded-xl p-4 border-2 border-secondary/20 z-10">
         <p className="text-xs font-semibold text-secondary mb-2">Agent Locations</p>
         <div className="space-y-1 text-xs text-gray-300">
           <div className="flex items-center gap-2">
