@@ -1,5 +1,5 @@
-import { SplineScene } from "@/components/ui/spline";
 import NeuralBackground from "@/components/ui/flow-field-background";
+import SplineAnimals from "./SplineAnimals";
 
 export default function SplineZoo() {
   return (
@@ -31,22 +31,17 @@ export default function SplineZoo() {
         }}
       />
 
-      {/* 3D Spline Scene - Layer 4 */}
-      <div className="absolute inset-0 z-0">
-        <SplineScene 
-          scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
-          className="w-full h-full opacity-80"
-        />
-      </div>
+      {/* 3D Animal Grid - Layer 4 */}
+      <SplineAnimals />
 
       {/* Instruction overlay - Layer 5 */}
       <div className="absolute bottom-8 right-8 z-10 glass rounded-xl p-4 max-w-xs border-2 border-primary/20">
         <div className="flex items-center gap-2 mb-2">
           <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-          <p className="text-xs font-semibold text-primary">Neural Network Active</p>
+          <p className="text-xs font-semibold text-primary">3D Zoo Active</p>
         </div>
         <p className="text-sm text-gray-300">
-          Move your mouse to interact with particles. Create custom animals at{' '}
+          Activate agents to see them appear in 3D! Create your own at{' '}
           <a 
             href="https://app.spline.design" 
             target="_blank" 
